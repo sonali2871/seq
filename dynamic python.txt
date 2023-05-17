@@ -1,0 +1,588 @@
+Q1)Union--------------------------------------------------------------------------------------------------------------------------------
+def fuzzy_union(set1, set2):
+    union_set = {}
+
+   
+    for element in set1:
+        if element in set2:
+            union_set[element] = max(set1[element], set2[element])
+
+    return union_set
+
+# Accept input from the user for set1
+set1 = {}
+while True:
+    element = input("Enter an element for set1 (or 'q' to quit): ")
+    if element == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in set1: ".format(element)))
+    set1[element] = membership_degree
+
+# Accept input from the user for set2
+set2 = {}
+while True:
+    element = input("Enter an element for set2 (or 'q' to quit): ")
+    if element == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in set2: ".format(element)))
+    set2[element] = membership_degree
+
+# Perform fuzzy union
+union = fuzzy_union(set1, set2)
+
+# Print the union set
+print("Intersection of the two fuzzy sets:")
+print(union)
+
+
+Q2)Intersection-------------------------------------------------------------------------------------------------------------------------
+def fuzzy_intersection(set1, set2):
+    intersection_set = {}
+
+    # Find common elements and their minimum membership degree
+    for element in set1:
+        if element in set2:
+            intersection_set[element] = min(set1[element], set2[element])
+
+    return intersection_set
+
+# Accept input from the user for set1
+set1 = {}
+while True:
+    element = input("Enter an element for set1 (or 'q' to quit): ")
+    if element == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in set1: ".format(element)))
+    set1[element] = membership_degree
+
+# Accept input from the user for set2
+set2 = {}
+while True:
+    element = input("Enter an element for set2 (or 'q' to quit): ")
+    if element == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in set2: ".format(element)))
+    set2[element] = membership_degree
+
+# Perform fuzzy intersection
+intersection = fuzzy_intersection(set1, set2)
+
+# Print the intersection set
+print("Intersection of the two fuzzy sets:")
+print(intersection)
+
+
+Q3)Difference-------------------------------------------------------------------------------------------------------
+def fuzzy_set_difference(set1, set2):
+    difference_set = {}
+
+    # Find elements in set1 that are not in set2
+    for element in set1:
+        if element not in set2:
+            difference_set[element] = set1[element]
+
+    return difference_set
+
+
+# Accept input from the user for set1
+set1 = {}
+while True:
+    element = input("Enter an element for set1 (or 'q' to quit): ")
+    if element == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in set1: ".format(element)))
+    set1[element] = membership_degree
+
+# Accept input from the user for set2
+set2 = {}
+while True:
+    element = input("Enter an element for set2 (or 'q' to quit): ")
+    if element == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in set2: ".format(element)))
+    set2[element] = membership_degree
+
+# Perform fuzzy set difference
+difference = fuzzy_set_difference(set1, set2)
+
+# Print the difference set
+print("Set difference of the two fuzzy sets:")
+print(difference)
+
+
+Q4)Complement-------------------------------------------------------------------------------------------------------------------------
+def fuzzy_set_complement(set1):
+    complement_set = {}
+
+    # Find elements in set1 with complemented membership degrees
+    for element in set1:
+        complement_degree = 1 - set1[element]
+        complement_set[element] = complement_degree
+
+    return complement_set
+
+
+# Accept input from the user for set1
+set1 = {}
+while True:
+    element = input("Enter an element for set1 (or 'q' to quit): ")
+    if element == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in set1: ".format(element)))
+    set1[element] = membership_degree
+
+# Perform fuzzy set complement for set1
+complement_set1 = fuzzy_set_complement(set1)
+
+# Accept input from the user for set2
+set2 = {}
+while True:
+    element = input("Enter an element for set2 (or 'q' to quit): ")
+    if element == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in set2: ".format(element)))
+    set2[element] = membership_degree
+
+# Perform fuzzy set complement for set2
+complement_set2 = fuzzy_set_complement(set2)
+
+# Print the complement sets
+print("Complement of set1:")
+print(complement_set1)
+print("Complement of set2:")
+print(complement_set2)
+
+Q5)Normal or Not----------------------------------------------------------------------------------------------------
+def is_normal_fuzzy_set(fuzzy_set):
+    max_membership_degree = max(fuzzy_set.values())
+    return max_membership_degree == 1.0
+
+
+def is_subnormal_fuzzy_set(fuzzy_set):
+    max_membership_degree = max(fuzzy_set.values())
+    return max_membership_degree < 1.0
+
+
+# Accept input from the user for the fuzzy set
+fuzzy_set = {}
+while True:
+    element = input("Enter an element for the fuzzy set (or 'q' to quit): ")
+    if element == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in the fuzzy set: ".format(element)))
+    fuzzy_set[element] = membership_degree
+
+# Check if the fuzzy set is normal or subnormal
+if is_normal_fuzzy_set(fuzzy_set):
+    print("The fuzzy set is normal.")
+elif is_subnormal_fuzzy_set(fuzzy_set):
+    print("The fuzzy set is subnormal.")
+else:
+    print("The fuzzy set is neither normal nor subnormal.")
+
+Q6)COre------------------------------------------------------------------------------------------------------------------------------------------
+def find_fuzzy_set_core(fuzzy_set):
+    core = []
+    for member, degree in fuzzy_set.items():
+        if degree == 1.0:
+            core.append(member)
+    return core
+
+
+# Accept input from the user for the fuzzy set
+fuzzy_set = {}
+while True:
+    member = input("Enter a member for the fuzzy set (or 'q' to quit): ")
+    if member == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in the fuzzy set: ".format(member)))
+    fuzzy_set[member] = membership_degree
+
+# Find the fuzzy set core
+core = find_fuzzy_set_core(fuzzy_set)
+
+# Print the member name(s) of the fuzzy set core
+if core:
+    print("The member name(s) of the fuzzy set core:")
+    for member in core:
+        print(member)
+else:
+    print("The fuzzy set does not have a core.")
+
+
+Q7)support---------------------------------------------------------------------------------------------
+def find_fuzzy_set_support(fuzzy_set):
+    support = []
+    for member, degree in fuzzy_set.items():
+        if degree > 0.0:
+            support.append(member)
+    return support
+
+
+# Accept input from the user for the fuzzy set
+fuzzy_set = {}
+while True:
+    member = input("Enter a member for the fuzzy set (or 'q' to quit): ")
+    if member == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in the fuzzy set: ".format(member)))
+    fuzzy_set[member] = membership_degree
+
+# Find the fuzzy set support
+support = find_fuzzy_set_support(fuzzy_set)
+
+# Print the members of the fuzzy set support
+if support:
+    print("The members of the fuzzy set support:")
+    for member in support:
+        print(member)
+else:
+    print("The fuzzy set does not have any support.")
+
+
+Q8)set alphacut----------------------------------------------------------
+def find_fuzzy_set_alpha_cut(fuzzy_set, alpha):
+    alpha_cut_set = {}
+    for member, degree in fuzzy_set.items():
+        if degree >= alpha:
+            alpha_cut_set[member] = degree
+    return alpha_cut_set
+
+
+# Accept input from the user for the fuzzy set
+fuzzy_set = {}
+while True:
+    member = input("Enter a member for the fuzzy set (or 'q' to quit): ")
+    if member == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in the fuzzy set: ".format(member)))
+    fuzzy_set[member] = membership_degree
+
+# Accept input from the user for the alpha-cut value
+alpha = float(input("Enter the alpha-cut value: "))
+
+# Find the fuzzy set with the given alpha-cut
+alpha_cut = find_fuzzy_set_alpha_cut(fuzzy_set, alpha)
+
+# Print the fuzzy set with the alpha-cut
+print("The fuzzy set with the alpha-cut:")
+print(alpha_cut)
+
+
+Q9)set height---------------------------------------------------------------------------------------------------------------------------
+def find_fuzzy_set_height(fuzzy_set):
+    max_membership_degree = max(fuzzy_set.values())
+    return max_membership_degree
+
+
+# Accept input from the user for the fuzzy set
+fuzzy_set = {}
+while True:
+    member = input("Enter a member for the fuzzy set (or 'q' to quit): ")
+    if member == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in the fuzzy set: ".format(member)))
+    fuzzy_set[member] = membership_degree
+
+# Find the height of the fuzzy set
+height = find_fuzzy_set_height(fuzzy_set)
+
+# Print the height of the fuzzy set
+print("The height of the fuzzy set:", height)
+
+
+Q10)tall fuzzy set----------------------------------------------------------------------------------------
+def find_very_tall_fuzzy_set(fuzzy_set):
+    very_tall_fuzzy_set = {}
+    for member, degree in fuzzy_set.items():
+        very_tall_degree = degree ** 2
+        very_tall_fuzzy_set[member] = very_tall_degree
+    return very_tall_fuzzy_set
+
+
+# Accept input from the user for the fuzzy set
+fuzzy_set = {}
+while True:
+    member = input("Enter a member for the fuzzy set (or 'q' to quit): ")
+    if member == "q":
+        break
+    membership_degree = float(input("Enter the membership degree for '{}' in the fuzzy set: ".format(member)))
+    fuzzy_set[member] = membership_degree
+
+# Find the fuzzy set for 'very tall'
+very_tall_set = find_very_tall_fuzzy_set(fuzzy_set)
+
+# Print the fuzzy set for 'very tall'
+print("The fuzzy set for 'very tall':")
+print(very_tall_set)
+
+
+Q11)slightly smart-----------------------------------------------------------------
+def apply_linguistic_modifier(fuzzy_set, modifier_func):
+    modified_set = {}
+
+    for element, membership in fuzzy_set.items():
+        modified_membership = modifier_func(membership)
+        modified_set[element] = modified_membership
+
+    return modified_set
+
+
+# Example usage
+smart = {'0.1': 0.1, '0.4': 0.4, '0.2': 0.2, '0.8': 0.8, '0.7': 0.7}
+
+# Applying the 'slightly' modifier by multiplying the membership degrees by 0.5
+slightly_smart = apply_linguistic_modifier(smart, lambda x: x * 0.5)
+
+print("Fuzzy set for 'slightly smart':")
+print(slightly_smart)
+
+
+def apply_linguistic_modifier(fuzzy_set, modifier_func):
+    modified_set = {}
+
+    for element, membership in fuzzy_set.items():
+        modified_membership = modifier_func(membership)
+        modified_set[element] = modified_membership
+
+    return modified_set
+
+
+# Example usage
+fat = {'0.1': 0.1, '0.4': 0.4, '0.2': 0.2, '0.8': 0.8, '0.7': 0.7}
+
+# Applying the 'very very' modifier by raising the membership degrees to the power of 3
+very_very_fat = apply_linguistic_modifier(fat, lambda x: x ** 3)
+
+print("Fuzzy set for 'very very fat':")
+print(very_very_fat)
+
+
+Q13)Dedicated----------------------------------------------------------------------------
+def apply_linguistic_modifier(fuzzy_set, modifier_func):
+    modified_set = {}
+
+    for element, membership in fuzzy_set.items():
+        modified_membership = modifier_func(membership)
+        modified_set[element] = modified_membership
+
+    return modified_set
+
+
+# Example usage
+dedicated = {'0.4': 0.4, '0.3': 0.3, '0': 0, '1': 1}
+
+# Applying the 'not at all' modifier by subtracting the membership degrees from 1
+not_at_all_dedicated = apply_linguistic_modifier(dedicated, lambda x: 1 - x)
+
+print("Fuzzy set for 'not at all dedicated':")
+print(not_at_all_dedicated)
+
+
+Q14)alpha cut 3 values-------------------------------------------------------------------------------------------------------------------
+def alpha_cut(matrix, alpha):
+    alpha_cut_matrix = []
+
+    for row in matrix:
+        alpha_cut_row = [1 if entry >= alpha else 0 for entry in row]
+        alpha_cut_matrix.append(alpha_cut_row)
+
+    return alpha_cut_matrix
+
+
+# Accepting matrix from the user
+rows = int(input("Enter the number of rows: "))
+cols = int(input("Enter the number of columns: "))
+
+matrix = []
+for i in range(rows):
+    row = []
+    for j in range(cols):
+        entry = float(input(f"Enter element at position ({i+1},{j+1}): "))
+        row.append(entry)
+    matrix.append(row)
+
+# Calculating alpha-cut relations
+alpha_values = [1, 0.5, 0.8, 0.3]
+alpha_cut_relations = {}
+
+for alpha in alpha_values:
+    alpha_cut_matrix = alpha_cut(matrix, alpha)
+    alpha_cut_relations[alpha] = alpha_cut_matrix
+
+# Printing the alpha-cut relations
+for alpha, relation in alpha_cut_relations.items():
+    print(f"α-cut relation for α={alpha}:")
+    for row in relation:
+        print(row)
+    print()
+
+
+Q15)alpha cut---------------------------------------------------------------------------------------------------------------------------------
+def alpha_cut(matrix, alpha):
+    alpha_cut_matrix = []
+
+    for row in matrix:
+        alpha_cut_row = [1 if entry >= alpha else 0 for entry in row]
+        alpha_cut_matrix.append(alpha_cut_row)
+
+    return alpha_cut_matrix
+
+
+# Accepting matrix from the user
+rows = int(input("Enter the number of rows: "))
+cols = int(input("Enter the number of columns: "))
+
+matrix = []
+for i in range(rows):
+    row = []
+    for j in range(cols):
+        entry = float(input(f"Enter element at position ({i+1},{j+1}): "))
+        row.append(entry)
+    matrix.append(row)
+
+# Calculating alpha-cut relations
+alpha_values = [0.3]
+alpha_cut_relations = {}
+
+for alpha in alpha_values:
+    alpha_cut_matrix = alpha_cut(matrix, alpha)
+    alpha_cut_relations[alpha] = alpha_cut_matrix
+
+# Printing the alpha-cut relations
+for alpha, relation in alpha_cut_relations.items():
+    print(f"α-cut relation for α={alpha}:")
+    for row in relation:
+        print(row)
+    print()
+
+
+
+
+
+Q)MAX-MIN-----------------------------------------------------------------------------------------------------------------
+def max_min_composition(u1, u2):
+    m = len(u1)
+    n = len(u1[0])
+    u3 = [[0] * n for _ in range(m)]
+
+    for i in range(m):
+        for j in range(n):
+            c = [min(u1[i][k], u2[k][j]) for k in range(n)]
+            u3[i][j] = max(c)
+
+    return u3
+
+
+def main():
+    m = int(input("Enter the number of rows: "))
+    n = int(input("Enter the number of columns: "))
+
+    print("Enter the entries in fuzzy set A:")
+    u1 = []
+    for _ in range(m):
+        row = list(map(float, input().split()))
+        u1.append(row)
+
+    print("Enter the entries in fuzzy set B:")
+    u2 = []
+    for _ in range(m):
+        row = list(map(float, input().split()))
+        u2.append(row)
+
+    u3 = max_min_composition(u1, u2)
+
+    print("\nThe max min composition of fuzzy set A and B is:")
+    for row in u3:
+        print("\t".join("{:.1f}".format(elem) for elem in row))
+
+
+if _name_ == "_main_":
+    main()
+
+
+
+
+
+Q)MAX Product-------------------------------------------------------------------------------------------------
+def max_product_composition(u1, u2):
+    m = len(u1)
+    n = len(u1[0])
+    u3 = [[0] * n for _ in range(m)]
+
+    for i in range(m):
+        for j in range(n):
+            c = [u1[i][k] * u2[k][j] for k in range(n)]
+            u3[i][j] = max(c)
+
+    return u3
+
+
+def main():
+    m = int(input("Enter the number of rows: "))
+    n = int(input("Enter the number of columns: "))
+
+    print("Enter the entries in fuzzy set A:")
+    u1 = []
+    for _ in range(m):
+        row = list(map(float, input().split()))
+        u1.append(row)
+
+    print("Enter the entries in fuzzy set B:")
+    u2 = []
+    for _ in range(m):
+        row = list(map(float, input().split()))
+        u2.append(row)
+
+    u3 = max_product_composition(u1, u2)
+
+    print("\nThe max product composition of fuzzy set A and B is:")
+    for row in u3:
+        print("\t".join("{:.2f}".format(elem) for elem in row))
+        
+        
+
+Q)De-Morgans Law--------------------------------------------------------------------------------------------------
+  def complement_set(set):
+    complement = [1 - value for value in set]
+    return complement
+
+def intersection(set1, set2):
+    intersect = [min(set1[i], set2[i]) for i in range(len(set1))]
+    return intersect
+
+def main():
+    # Get the number of elements in the sets
+    n = int(input("Enter the number of elements in the sets: "))
+
+    # Initialize the sets
+    set1 = []
+    set2 = []
+
+    # Get the membership values for the first set
+    print("Enter the membership values for the first set:")
+    for i in range(n):
+        value = float(input(f"Element {i + 1}: "))
+        set1.append(value)
+
+    # Get the membership values for the second set
+    print("Enter the membership values for the second set:")
+    for i in range(n):
+        value = float(input(f"Element {i + 1}: "))
+        set2.append(value)
+
+    # Calculate the complement of each set
+    complement_set1 = complement_set(set1)
+    complement_set2 = complement_set(set2)
+
+    # Apply De Morgan's Law: ~(A ∪ B) = (~A) ∩ (~B)
+    union_complement = intersection(complement_set1, complement_set2)
+
+    # Display the result
+    print("The result of applying De Morgan's Law is:")
+    for i, value in enumerate(union_complement):
+        print(f"Element {i + 1}: {value}")
+
+
+if __name__ == '__main__':
+    main()
